@@ -1,0 +1,19 @@
+{
+  "name": "depthscene",
+  "version": "0.3.0",
+  "private": true,
+  "description": "单目深度视觉避障：Python 服务端推理（ONNX Runtime），浏览器只做呈现",
+  "keywords": [
+    "depth-estimation",
+    "obstacle-avoidance",
+    "object-detection",
+    "yolo-world",
+    "onnxruntime",
+    "opencv"
+  ],
+  "scripts": {
+    "start": "python -m depthscene",
+    "download": "python -m depthscene --download",
+    "check": "python -m compileall -q depthscene && node --check depthscene/web/live.js"
+  }
+}

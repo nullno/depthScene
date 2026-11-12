@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <title>DepthScene · 视觉避障</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">◈</div>
+        <div class="brand-text">
+          <h1>DEPTHSCENE</h1>
+          <p>浏览器采集 · 服务端推理</p>
+        </div>
+      </div>
+
+      <div class="hud" id="hud">
+        <div class="hud-item"><span class="k">画面</span><b id="hudFps">0</b></div>
+        <div class="hud-item"><span class="k">深度</span><b id="hudDepth">--</b></div>
+        <div class="hud-item"><span class="k">检测</span><b id="hudDetect">--</b></div>
+        <div class="hud-item"><span class="k">推理</span><b id="hudRate">--</b></div>
+      </div>
+
+      <button class="btn ghost mini" id="btnMirror" title="水平翻转画面">镜像</button>
+      <span class="badge" id="badgeMode">请求摄像头…</span>
+    </header>
+
+    <main class="main">
+      <section class="stage">
+        <canvas id="stage"></canvas>
+        <video id="cam" playsinline muted autoplay
+               style="position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;left:-10px;top:-10px;"></video>
+        <div class="feed-tag"><i></i>LIVE</div>
+        <div class="stage-hint" id="stageHint">等待摄像头…</div>
+      </section>
+
+      <aside class="side">
+        <div class="card">
+          <div class="card-head"><span>极坐标障碍图</span><span id="radarMeta">--</span></div>
+          <canvas id="radar" class="radar"></canvas>
+          <p class="card-note">白色箭头 = 建议行进方向</p>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><span>深度图</span><span id="depthMeta">--</span></div>
+          <img id="depthImg" class="depth-mini" alt="" />
+        </div>
+
+        <div class="card">
+          <div class="card-head"><span>通行余量</span><span id="sectorMeta">--</span></div>
+          <div class="clear3" id="clear3"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><span>识别结果</span><span id="detMeta">0</span></div>
+          <div class="det-list" id="detList"><p class="card-note">暂无目标</p></div>
+          <p class="card-note" id="detNote">YOLO-World 开放词表</p>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="advice" id="advice" data-action="idle">
+      <span class="arrow">▲</span>
+      <div class="advice-text">
+        <b id="adviceText">等待推理结果…</b>
+        <small id="adviceSub">--</small>
+      </div>
+    </footer>
+  </div>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script type="module" src="/live.js"></script>
+</body>
+</html>
